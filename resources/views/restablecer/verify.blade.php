@@ -5,7 +5,7 @@
     </head>
     <body>
         <h2>Verifica tu direccion de E-mail</h2>
-
+        <img src="{{url('/')}}/img/intro03.png" alt="logotipo" />
         <div style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;">
     <div style="margin-right: -15px; margin-left: -15px;">
         <div style="width: 100%;float: left;position: relative; min-height: 1px; padding-right: 15px; padding-left: 15px;box-sizing: border-box;">
