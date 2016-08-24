@@ -316,7 +316,7 @@ class MovilController extends Controller
 
 
     public function obtieneServiciosproveedorhistorial(Request $request){
-        $servicioscontratados = ServicioContratado::where('proveedor_id', $request->id)->with('servicio','estatus','cliente')->get();
+        $servicioscontratados = ServicioContratado::where('proveedor_id', $request->id)->with('servicio','estatus','cliente')->orderBy('created_at','DESC')->get();
 
         return \Response::json(['error' => 'false', 'msg' => $servicioscontratados, 'status' => '200'], 200);
     }
@@ -326,7 +326,7 @@ class MovilController extends Controller
 
         $proveedor = Proveedor::find($request->id);
 
-        $serviciosactivos = ProveedorServicio::where('proveedores_id',$proveedor->id)->with('servicioscontratados')->get();
+        $serviciosactivos = ProveedorServicio::where('proveedores_id',$proveedor->id)->with('servicioscontratados')->orderBy('created_at','DESC')->get();
 
         return \Response::json(['error' => 'false', 'msg' => $serviciosactivos, 'status' => '200'], 200);
     }
