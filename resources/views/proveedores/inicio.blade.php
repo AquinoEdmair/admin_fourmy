@@ -1,8 +1,7 @@
-usuario->@extends('layouts.app')
+@extends('layouts.app')
 
 @section('htmlheader_title')
-	Usuarios
-
+	Proveedores
 @endsection
 
 
@@ -38,7 +37,13 @@ usuario->@extends('layouts.app')
     <td> {{ $proveedor->usuario->nombre }}</td>
     <td> {{ $proveedor->usuario->email }}</td>
     <td> {{ $proveedor->telefono }}</td>
-    <td> {{ $proveedor->promedioCalificaciones[0]->puntuacion}}</td>
+    <td>
+      @if(count($proveedor->promedioCalificaciones)>0)
+        {{$proveedor->promedioCalificaciones[0]->puntuacion}}
+      @else
+        0
+      @endif
+    </td>
     <td>
       <div class="col-md-6">
         <div class="col-md-6">

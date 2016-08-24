@@ -3,7 +3,6 @@
 
 @section('htmlheader_title')
     Editar proveedor
-
 @endsection
 
 
@@ -27,10 +26,10 @@
                     <input type="text" class="form-control" placeholder="Escribir número de telefono" name="telefono" value="{{ $proveedor->telefono }}" />
                 </div>
                 <div class="form-group has-feedback col-md-8">
-                    <input type="text" class="form-control" placeholder="Escribir dirección" name="direccion" value="{{ $proveedor->direccion }}" />
+                    <input type="text" class="form-control" placeholder="Escribir ciudad" name="ciudad" value="{{ $proveedor->ciudad }}" />
                 </div>
                 <div class="form-group has-feedback col-md-8">
-                    <input type="text" class="form-control" placeholder="Escribir ciudad" name="ciudad" value="{{ $proveedor->ciudad }}" />
+                    <input type="text" class="form-control" placeholder="Escribir dirección" name="direccion" value="{{ $proveedor->direccion }}" />
                 </div>
                 <div class="form-group has-feedback col-md-8">
                     <input type="text" class="form-control" placeholder="Escribir RFC" name="rfc" value="{{ $proveedor->rfc }}" />                    

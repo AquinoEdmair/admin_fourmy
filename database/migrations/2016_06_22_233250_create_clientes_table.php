@@ -18,7 +18,8 @@ class CreateClientesTable extends Migration
             $table->string('telefono');
             $table->date('fecha_nacimiento');
             $table->string('genero');
-            $table->string('ciudad');                    
+            $table->string('ciudad');   
+            $table->string('direccion');                    
             $table->boolean('confirmed')->default(0);
             $table->string('confirmation_code')->nullable();
             $table->softDeletes();

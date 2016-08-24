@@ -13,6 +13,7 @@ use App\ServicioContratado;
 use App\PagoServicio;
 use App\EstatusServicio;
 use App\ProveedorServicio;
+use App\UsuarioAndroid;
 use App\CalificacionProveedorCliente;
 use App\CalificacionClienteProveedor;
 use App\Restablecer;
@@ -153,7 +154,10 @@ class MovilController extends Controller
         $serviciocontratado->hora_contratacion = $request->hora;
         $serviciocontratado->observaciones = $request->observaciones;
         $serviciocontratado->direccion = $request->direccion;
+        $serviciocontratado->calificacion_cliente = 0;
+        $serviciocontratado->calificacion_proveedor = 0;
         $serviciocontratado->save();
+
 
         $pagoservicio = new PagoServicio();
         $pagoservicio->serviciocontratado_id = $serviciocontratado->id;
@@ -166,7 +170,25 @@ class MovilController extends Controller
         $servicio = ServicioContratado::with('servicio','estatus','proveedor','cliente')->find($serviciocontratado->id);
 
 
-        return \Response::json(['error' => 'false', 'msg' => "La solicitud fue recibida!", 'servicio' => $servicio, 'status' => '200'], 200);
+        //Envia notificacion al proveedor
+        $proveedores = ProveedorServicio::where('servicios_id',$request->servicio_id)->with('proveedor')->get();
+
+
+        $registatoin_ids = array();
+        foreach ($proveedores as $pro) {
+            $registatoin_ids[] = $pro->proveedor->usuario->regId;
+        } 
+
+        $mensaje = $servicio->cliente->usuario->nombre." ha solicitado el servicio de ".$servicio->servicio->servicio."!";
+
+        $message = array("msg" => $mensaje, "tipo" => 3, "servicio" => $servicio);
+        $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);  
+        sleep(1);
+
+        //termina envio de notifiacion al proveedor
+
+
+        return \Response::json(['error' => 'false', 'msg' => "¡Haz contratado el servicio de ".$servicio->servicio->servicio."!", 'servicio' => $servicio, 'status' => '200'], 200);
     }
 
 
@@ -177,12 +199,33 @@ class MovilController extends Controller
 
         $serviciocontratado = ServicioContratado::find($request->servicio_contratado_id);
 
-        if(is_null($serviciocontratado->proveedor_id)){
+        if($serviciocontratado->proveedor_id == 0){
             $serviciocontratado->proveedor_id = $request->proveedor_id;
             $serviciocontratado->estatus_servicio_id = $estatusservicio->id;
             $serviciocontratado->save();
 
-            return \Response::json(['error' => 'false', 'msg' => "La solicitud fue recibida!", 'status' => '200'], 200);
+
+            //Envia notificacion al cliente
+
+            $servicio = ServicioContratado::with('servicio','estatus','proveedor','cliente')->find($request->servicio_contratado_id);
+
+            $cliente = Cliente::with('usuario')->find($serviciocontratado->cliente_id);
+
+            $proveedor = Proveedor::with('usuario')->find($request->proveedor_id);
+
+            $registatoin_ids = array();
+            $registatoin_ids[] = $cliente->usuario->regId;
+
+            $mensaje = $proveedor->usuario->nombre." ha aceptado realizar el servicio!";
+
+            $message = array("msg" => $mensaje, "tipo" => 1, "servicio" => $servicio);
+            $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);  
+            sleep(1);
+
+            //termina envio de notifiacion al cliente
+
+
+            return \Response::json(['error' => 'false', 'msg' => "¡Fuiste contratado para realizar el servicio de".$servicio->servicio->servicio."!", "servicio" => $servicio, 'status' => '200'], 200);
         }else{
             return \Response::json(['error' => 'true', 'msg' => "El servicio ya fue aceptado por otro proveedor!", 'status' => '200'], 200);
         }
@@ -207,6 +250,25 @@ class MovilController extends Controller
         $calificacionproveedor->puntuacion = $request->puntuacion;
         $calificacionproveedor->comentarios = $request->comentarios;
         $calificacionproveedor->save();
+
+        //Envia notificacion al cliente
+
+        $servicio = ServicioContratado::with('servicio','estatus','proveedor','cliente')->find($request->servicio_contratado_id);
+
+        $cliente = Cliente::with('usuario')->find($request->cliente_id);
+
+        $proveedor = Proveedor::with('usuario')->find($request->proveedor_id);
+
+        $registatoin_ids = array();
+        $registatoin_ids[] = $cliente->usuario->regId;
+
+        $mensaje = $proveedor->usuario->nombre." ha finalizado el servicio, califícalo!";
+
+        $message = array("msg" => $mensaje, "tipo" => 1, "servicio" => $servicio);
+        $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);  
+        sleep(1);
+
+        //termina envio de notifiacion al cliente
 
         return \Response::json(['error' => 'false', 'msg' => "Se ha finalizado el servicio!", 'status' => '200'], 200);
 
@@ -289,8 +351,14 @@ class MovilController extends Controller
         Mail::send('restablecer.verify',['data' => $data], function ($message) use ($data){
           $message->to($data["email"])->subject('Restablecer contraseña');
         });
+
+        return \Response::json(['error' => 'false', 'msg' => 'Por favor restablesca su contraseña a traves de nuestro correo!', 'status' => '200'], 200);
+      }else{
+        return \Response::json(['error' => 'true', 'msg' => 'El correo no se encuenta registrado!', 'status' => '200'], 200);
       }
-       return \Response::json(['error' => 'false', 'msg' => 'Por favor restablesca su contraseña a traves de nuestro correo!', 'status' => '200'], 200);
+
+
+        
     }    
 
 

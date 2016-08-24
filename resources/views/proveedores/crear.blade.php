@@ -3,7 +3,6 @@
 
 @section('htmlheader_title')
 	Crear proveedor
-
 @endsection
 
 
@@ -30,10 +29,10 @@
                     <input type="text" class="form-control" placeholder="Escribir número de telefono" name="telefono" value="{{ old('telefono') }}"/>
                 </div>
                 <div class="form-group has-feedback col-md-8">
-                    <input type="text" class="form-control" placeholder="Escribir dirección" name="direccion" value="{{ old('direccion') }}"/>
+                    <input type="text" class="form-control" placeholder="Escribir ciudad" name="ciudad" value="{{ old('ciudad') }}"/>
                 </div>
                 <div class="form-group has-feedback col-md-8">
-                    <input type="text" class="form-control" placeholder="Escribir ciudad" name="ciudad" value="{{ old('ciudad') }}"/>
+                    <input type="text" class="form-control" placeholder="Escribir dirección" name="direccion" value="{{ old('direccion') }}"/>
                 </div>
                 <div class="form-group has-feedback col-md-8">
                     <input type="text" class="form-control" placeholder="Escribir RFC" name="rfc" value="{{ old('rfc') }}"/>

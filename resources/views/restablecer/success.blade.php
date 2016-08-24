@@ -50,7 +50,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             <div class="col-md-8 col-md-offset-2">
                 <div class="jumbotron">
                   <div class="container">
-                    <h2 style="color: #34495E">Felicitaciones !</h2>
+                    <h2 style="color: #34495E">Felicitaciones!</h2>
                     <p style="color: #5D5D5D">Se ha cambiado la contraseña de su correo, ahora puede iniciar sesión en nuestra app móvil</p>
                   </div>
                 </div>

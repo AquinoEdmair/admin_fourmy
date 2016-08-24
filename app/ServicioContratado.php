@@ -27,6 +27,7 @@ class ServicioContratado extends Model
     public function cliente(){
         return $this->hasOne('App\Cliente','id','cliente_id')->with('usuario');
     }
+    
     public function usuario(){
         return $this->hasOne('App\Usuario','id','usuarios_id');
     }

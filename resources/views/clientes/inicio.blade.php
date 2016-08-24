@@ -36,7 +36,13 @@
     <td> {{ $cliente->usuario->nombre }}</td>
     <td> {{ $cliente->usuario->email }}</td>
     <td> {{ $cliente->telefono }}</td>
-    <td> {{ $cliente->promedioCalificaciones[0]->puntuacion }}</td>
+    <td>
+      @if(count($cliente->promedioCalificaciones)>0)
+        {{$cliente->promedioCalificaciones[0]->puntuacion}}
+      @else
+        0
+      @endif
+    </td>
     <td class=" last"><img src='{{asset($cliente->usuario->img_perfil)}}' class="thumb img-responsive" height="42" width="42"></td>
     <td>
       <div class="col-md-6"> 

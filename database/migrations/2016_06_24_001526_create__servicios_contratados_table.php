@@ -20,8 +20,11 @@ class CreateServiciosContratadosTable extends Migration
             $table->integer('estatus_servicio_id');
             $table->decimal('precio');
             $table->string('observaciones');
+            $table->string('direccion');
             $table->date('fecha_contratacion');
             $table->time('hora_contratacion');
+            $table->integer('calificacion_cliente');
+            $table->integer('calificacion_proveedor');
             $table->softDeletes();
             $table->timestamps();
         });

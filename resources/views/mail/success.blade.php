@@ -9,7 +9,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <meta name="description" content="Pratt - Free Bootstrap 3 Theme">
     <meta name="author" content="Alvarez.is - BlackTie.co">
 
-    <title>Acacha AdminLTE Laravel package template Landing page - Using Pratt</title>
+    <title>Fourmy</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
@@ -50,7 +50,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             <div class="col-md-8 col-md-offset-2">
                 <div class="jumbotron">
                   <div class="container">
-                    <h2 style="color: #34495E">Felicitaciones !</h2>
+                    <h2 style="color: #34495E">Felicitaciones!</h2>
                     <p style="color: #5D5D5D">Se ha verificado correctamente su dirección de correo electrónico, ahora puede iniciar sesión en nuestra app móvil</p>                    
                   </div>
                 </div>

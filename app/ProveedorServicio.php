@@ -16,4 +16,8 @@ class ProveedorServicio extends Model
     public function servicio(){
         return $this->hasOne('App\Servicio','id','servicios_id');
     }
+
+    public function proveedor(){
+        return $this->hasOne('App\Proveedor','id','proveedores_id')->with('usuario');
+    }
 }

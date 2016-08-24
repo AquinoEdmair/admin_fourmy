@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     {   
 
         $estatus = new EstatusServicio();
-        $estatus->estatus_servicio = "Pendiente";
+        $estatus->estatus_servicio = "Contratado";
         $estatus->save();
 
         $estatus = new EstatusServicio();
-        $estatus->estatus_servicio = "En Proceso";
+        $estatus->estatus_servicio = "En Ejecución";
         $estatus->save();
 
         $estatus = new EstatusServicio();

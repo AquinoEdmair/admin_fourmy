@@ -5,7 +5,7 @@
     </head>
     <body>
         <h2>Verifica tu direccion de E-mail</h2>
-        <img src="{{url('/')}}/img/intro03.png" alt="logotipo" />
+        <img src="{{url('/')}}/img/logo.png" width="60px" height="58px" alt="logotipo" />
         <div style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;">
     <div style="margin-right: -15px; margin-left: -15px;">
         <div style="width: 100%;float: left;position: relative; min-height: 1px; padding-right: 15px; padding-left: 15px;box-sizing: border-box;">
@@ -17,15 +17,15 @@
                                                 font-size: 14px;">Hola <b>{{$data["nombre"]}}</b>,</p>
                     <br />
                     <p style="text-align:justify;font-style:normal;font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-                                                font-size: 14px;">Ingrese a la siguiente URL para restablecer su contraseña</p>
+                                                font-size: 14px;">Ingrese a la siguiente URL para restablecer su contraseña!</p>
 
                     <p style="text-align:justify;font-style:normal;font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-                                                font-size: 14px;"><a href="http://localhost/fourmy/public/nueva_password/{{$data["token_reset"]}}">Restablecer contraseña</a></p>
+                                                font-size: 14px;"><a href="http://localhost/fourmy/public/nuevapassword/{{$data["token_reset"]}}">Restablecer contraseña.</a></p>
 
                     <br /><br />
                     <br /><br />
                     <p style="text-align:center;font-style:italic;font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-                                                font-size: 12px;">Esto es unicamente una notificacion de correo electronico. Por favor, no responda a este mensaje.</p>
+                                                font-size: 12px;">Esto es unicamente una notificación de correo electrónico. Por favor, no responda a este mensaje.</p>
 
 
             </div>

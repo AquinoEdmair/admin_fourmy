@@ -16,6 +16,7 @@ class CreateCalificacionesProveedorTable extends Migration
             $table->increments('id');
             $table->integer('serviciocontratado_id');
             $table->integer('proveedor_id');
+            $table->integer('cliente_id');
             $table->float('puntuacion');
             $table->string('comentarios');
             $table->softDeletes();
