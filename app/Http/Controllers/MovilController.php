@@ -191,6 +191,7 @@ class MovilController extends Controller
         $data["hora"]=$request->hora;
         $data["observaciones"]=$request->observaciones;
         $data["nombre"]=$servicio->cliente->usuario->nombre;
+        
         Mail::send('clientes.verify',['data' => $data], function ($message) use ($data){
           $message->to($data["email"])->subject('Detalles del servicio');
         });
