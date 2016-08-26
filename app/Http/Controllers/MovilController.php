@@ -177,16 +177,23 @@ class MovilController extends Controller
         $registatoin_ids = array();
         foreach ($proveedores as $pro) {
             $registatoin_ids[] = $pro->proveedor->usuario->regId;
-        } 
+        }
 
         $mensaje = $servicio->cliente->usuario->nombre." ha solicitado el servicio de ".$servicio->servicio->servicio."!";
 
         $message = array("msg" => $mensaje, "tipo" => 3, "servicio" => $servicio);
-        $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);  
+        $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);
         sleep(1);
 
-        //termina envio de notifiacion al proveedor
-
+        $data["servicio"]=$servicio->servicio->servicio;
+        $data["precio"]=$request->precio;
+        $data["fecha"]=  $request->fecha;
+        $data["hora"]=$request->hora;
+        $data["observaciones"]=$request->observaciones;
+        $data["nombre"]=$servicio->cliente->usuario->nombre;
+        Mail::send('clientes.verify',['data' => $data], function ($message) use ($data){
+          $message->to($data["email"])->subject('Detalles del servicio');
+        });
 
         return \Response::json(['error' => 'false', 'msg' => "¡Haz contratado el servicio de ".$servicio->servicio->servicio."!", 'servicio' => $servicio, 'status' => '200'], 200);
     }
@@ -219,7 +226,7 @@ class MovilController extends Controller
             $mensaje = $proveedor->usuario->nombre." ha aceptado realizar el servicio!";
 
             $message = array("msg" => $mensaje, "tipo" => 1, "servicio" => $servicio);
-            $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);  
+            $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);
             sleep(1);
 
             //termina envio de notifiacion al cliente
@@ -265,7 +272,7 @@ class MovilController extends Controller
         $mensaje = $proveedor->usuario->nombre." ha finalizado el servicio, califícalo!";
 
         $message = array("msg" => $mensaje, "tipo" => 1, "servicio" => $servicio);
-        $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);  
+        $notification = UsuarioAndroid::send_notification($registatoin_ids,$message);
         sleep(1);
 
         //termina envio de notifiacion al cliente
@@ -358,8 +365,8 @@ class MovilController extends Controller
       }
 
 
-        
-    }    
+
+    }
 
 
 
